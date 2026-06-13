@@ -1,0 +1,15 @@
+/* src/App.css */
+.App {
+  font-family: Arial, sans-serif;
+}
+
+.content {
+  padding: 20px;
+  margin-left: 260px; /* Adjust this value if your sidebar width changes */
+}
+
+@media (max-width: 768px) {
+  .content {
+    margin-left: 0;
+  }
+}

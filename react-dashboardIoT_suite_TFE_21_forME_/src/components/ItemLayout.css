@@ -1,0 +1,109 @@
+/* src/components/ItemLayout.css */
+.main-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  transition: margin-left 0.3s;
+  /*width: 60px; /* Smaller width for icon-only sidebar */
+  background-color: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px; /* Adjust padding as necessary */
+  height: 100vh;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.sidebar li {
+  margin: 20px 0;
+}
+
+.sidebar a {
+  font-size: 24px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: color 0.3s, background-color 0.3s;
+  cursor: pointer;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+.sidebar-open {
+  margin-left: 240px; /* correspond au drawerWidth */
+}
+
+.sidebar-closed {
+  margin-left: 60px; /* ou 0 si tu veux vraiment coller à gauche */
+}
+.sidebar .selected a {
+  color: #4caf50; /* Highlight color */
+}
+
+.second-sidebar {
+  width: 300px;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  transition: transform 0.3s;
+  transform: translateX(-100%);
+  overflow-y: auto; /* Allows vertical scrolling */
+}
+.second-sidebar.open {
+  transform: translateX(0);
+}
+
+.tools-content .search-bar {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+h2 {
+  margin-top: 0;
+}
+.notification-item {
+  background-color: #f0f0f0; /* Couleur de fond douce */
+  border: 1px solid #ddd; /* Bordure légère */
+  border-radius: 8px; /* Coins arrondis */
+  padding: 10px; /* Espacement interne */
+  margin-bottom: 10px; /* Espacement entre les notifications */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Légère ombre portée */
+}
+
+.notification-header {
+  font-weight: bold; /* Texte en gras pour le titre */
+  color: #333; /* Couleur du texte */
+  margin-bottom: 5px; /* Espacement sous le titre */
+}
+
+/* Ensures the text wraps properly within its container */
+.notification-message p {
+  word-wrap: break-word; /* Breaks long words and wraps text to the next line */
+  overflow-wrap: break-word; /* Ensures that long words are wrapped to avoid horizontal overflow */
+  margin: 0; /* Optional: Adjusts margin if needed */
+  padding: 0; /* Optional: Adjusts padding if needed */
+  color: #555;
+}
+
+.notification-badge {
+  font-size: 12px;
+  background-color: red; /* Couleur de fond rouge */
+  color: white; /* Couleur du texte blanche */
+  border-radius: 50%;
+  padding: 2px 6px;
+  line-height: 1;
+  font-weight: bold;
+}
