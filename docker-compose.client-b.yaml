@@ -1,0 +1,51 @@
+name: clientb
+
+services:
+  frontend-client-b:
+    build:
+      context: ./client-template/frontend
+      args:
+        REACT_APP_FRONTEND_URL: http://localhost:3002
+        REACT_APP_API_URL: http://localhost:5002/api
+        REACT_APP_WS_URL: ws://localhost:5002/ws
+    container_name: frontend-client-b
+    ports:
+      - "3002:80"
+    depends_on:
+      - backend-client-b
+
+  backend-client-b:
+    build:
+      context: ./client-template/backend
+    container_name: backend-client-b
+    ports:
+      - "5002:5000"
+    environment:
+      FRONTEND_URL: http://localhost:3002
+      DB_HOST: database-client-b
+      DB_PORT: 5432
+      DB_NAME: postgres
+      DB_USER: postgres
+      DB_PASSWORD: isib123
+      MQTT_HOST: 192.168.2.152
+      MQTT_PORT: 1883
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: admin123
+      JWT_SECRET: your_secret_key
+    depends_on:
+      - database-client-b
+
+  database-client-b:
+    image: postgres:16
+    container_name: database-client-b
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: isib123
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_client_b_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_client_b_data:
