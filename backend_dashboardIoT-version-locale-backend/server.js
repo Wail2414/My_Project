@@ -30,7 +30,7 @@ const clientStackRoutes = require("./routes/clientStackRoutes");
 //on autorise l'appel depuis localhost:3000 (frontend) et on autorise les cookies dans les requêtes cross-origin (credentials: true)
 const corsOptions = {
   origin: [
-    "http://localhost:3000", //"http://localhost:3000", //"https://c.technivor.net"
+    "https://admin.technivor.com", //"http://localhost:3000", //"https://c.technivor.net"
   ],
   credentials: true,
 };

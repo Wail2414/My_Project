@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
 
-const NODE_RED_URL = "http://192.168.2.144:1880";
+const NODE_RED_URL = "http://100.107.226.96:1880";
 const TARGET_FLOW_ID = "d4a5a928e8f97ebf"; // à généraliser plus tard
 
 // Ajouter un capteur

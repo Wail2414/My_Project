@@ -1,0 +1,51 @@
+name: isib
+
+services:
+  frontend-isib:
+    build:
+      context: ./Client-template/frontend
+      args:
+        REACT_APP_FRONTEND_URL: https://isib.technivor.com
+        REACT_APP_API_URL: https://api-isib.technivor.com/api
+        REACT_APP_WS_URL: wss://api-isib.technivor.com/ws
+    container_name: frontend-isib
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend-isib
+
+  backend-isib:
+    build:
+      context: ./Client-template/backend
+    container_name: backend-isib
+    ports:
+      - "5001:5000"
+    environment:
+      FRONTEND_URL: https://isib.technivor.com
+      DB_HOST: database-isib
+      DB_PORT: 5432
+      DB_NAME: postgres
+      DB_USER: postgres
+      DB_PASSWORD: isib123
+      MQTT_HOST: 192.168.0.138
+      MQTT_PORT: 1883
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: admin123
+      JWT_SECRET: your_secret_key
+    depends_on:
+      - database-isib
+
+  database-isib:
+    image: postgres:16
+    container_name: database-isib
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: isib123
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_isib_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_isib_data:

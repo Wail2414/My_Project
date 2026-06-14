@@ -11,7 +11,7 @@ export const MqttProvider = ({ children }) => {
   useEffect(() => {
     //const ws = new WebSocket("wss://localhost:5000/ws");
     //const ws = new WebSocket("wss://api.technivor.net/ws"); // ton backend WebSocket
-    const ws = new WebSocket("ws://localhost:5000/ws");
+    const ws = new WebSocket("wss://api-admin.technivor.com/ws");
     setSocket(ws);
 
     ws.onopen = () => console.log("🟢 WebSocket ouvert");

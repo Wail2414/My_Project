@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import axios from "../axiosConfig";
 
 export default function AdminClientsPage() {
   const [clients, setClients] = useState([]);
   const [newClientName, setNewClientName] = useState("");
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
 
   const loadClients = async () => {
     const res = await axios.get("/client-stacks");
@@ -52,7 +61,12 @@ export default function AdminClientsPage() {
 
   return (
     <div style={{ padding: "30px" }}>
-      <h1>Gestion des stacks clients</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h1>Gestion des stacks clients</h1>
+        <button onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
 
       <div
         style={{

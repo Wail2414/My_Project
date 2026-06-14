@@ -24,8 +24,8 @@ function loadClientsFromComposeFiles() {
 
       return {
         name: clientName,
-        frontendUrl: `http://localhost:${3001 + index}`,
-        backendUrl: `http://localhost:${5001 + index}`,
+        frontendUrl: `http://192.168.0.138:${3001 + index}`,
+        backendUrl: `http://192.168.0.138:${5001 + index}`,
         composeFile: file,
       };
     });
@@ -44,11 +44,11 @@ function generateCompose(clientName, index) {
 services:
   frontend-${clientName}:
     build:
-      context: ./client-template/frontend
+      context: ./Client-template/frontend
       args:
-        REACT_APP_FRONTEND_URL: http://localhost:${frontendPort}
-        REACT_APP_API_URL: http://localhost:${backendPort}/api
-        REACT_APP_WS_URL: ws://localhost:${backendPort}/ws
+        REACT_APP_FRONTEND_URL: http://192.168.0.138:${frontendPort}
+        REACT_APP_API_URL: http://192.168.0.138:${backendPort}/api
+        REACT_APP_WS_URL: ws://192.168.0.138:${backendPort}/ws
     container_name: frontend-${clientName}
     ports:
       - "${frontendPort}:80"
@@ -57,18 +57,18 @@ services:
 
   backend-${clientName}:
     build:
-      context: ./client-template/backend
+      context: ./Client-template/backend
     container_name: backend-${clientName}
     ports:
       - "${backendPort}:5000"
     environment:
-      FRONTEND_URL: http://localhost:${frontendPort}
+      FRONTEND_URL: http://192.168.0.138:${frontendPort}
       DB_HOST: database-${clientName}
       DB_PORT: 5432
       DB_NAME: postgres
       DB_USER: postgres
       DB_PASSWORD: isib123
-      MQTT_HOST: 192.168.2.152
+      MQTT_HOST: 192.168.0.138
       MQTT_PORT: 1883
       ADMIN_EMAIL: admin@example.com
       ADMIN_PASSWORD: admin123
@@ -141,8 +141,8 @@ router.post("/create", (req, res) => {
 
       const newClient = {
         name: cleanClientName,
-        frontendUrl: `http://localhost:${frontendPort}`,
-        backendUrl: `http://localhost:${backendPort}`,
+        frontendUrl: `http://192.168.0.138:${frontendPort}`,
+        backendUrl: `http://192.168.0.138:${backendPort}`,
         composeFile,
       };
 
