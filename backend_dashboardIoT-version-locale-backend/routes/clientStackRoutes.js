@@ -9,13 +9,20 @@ const projectRoot = path.join(__dirname, "..", "..");
 
 let clients = [];
 
+const domainMap = {
+  "isib": {
+    frontendUrl: "https://isib.technivor.com",
+    backendUrl: "https://api-isib.technivor.com"
+   }
+};
+
 function loadClientsFromComposeFiles() {
   const files = fs.readdirSync(projectRoot);
 
   clients = files
     .filter(
       (file) =>
-        file.startsWith("docker-compose.client-") && file.endsWith(".yaml"),
+        file.startsWith("docker-compose.") && file !== "docker-compose.yaml" && file.endsWith(".yaml"),
     )
     .map((file, index) => {
       const clientName = file
@@ -24,8 +31,8 @@ function loadClientsFromComposeFiles() {
 
       return {
         name: clientName,
-        frontendUrl: `http://192.168.0.138:${3001 + index}`,
-        backendUrl: `http://192.168.0.138:${5001 + index}`,
+        frontendUrl: domainMap[clientName]?.frontendUrl || `http://192.168.0.138:${3001 + index}`,
+        backendUrl: domainMap[clientName]?.backendUrl || `http://192.168.0.138:${5001 + index}`,
         composeFile: file,
       };
     });
@@ -141,8 +148,8 @@ router.post("/create", (req, res) => {
 
       const newClient = {
         name: cleanClientName,
-        frontendUrl: `http://192.168.0.138:${frontendPort}`,
-        backendUrl: `http://192.168.0.138:${backendPort}`,
+        frontendUrl: domainMap[cleanClientName]?.frontendUrl || `http://192.168.0.138:${frontendPort}`,
+        backendUrl: domainMap[cleanClientName]?.backendUrl || `http://192.168.0.138:${backendPort}`,
         composeFile,
       };
 
