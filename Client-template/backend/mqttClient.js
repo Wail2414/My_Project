@@ -133,6 +133,11 @@ function startMqttClient(wss) {
   });
 }
 
+function getMqttClient() {
+  return mqttclient;
+}
+
 module.exports = {
   startMqttClient,
+  getMqttClient,
 };
